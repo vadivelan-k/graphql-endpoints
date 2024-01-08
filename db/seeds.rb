@@ -7,3 +7,25 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+10.times do |number|
+  number += 1
+  menu = Menu.create(
+    label: "Menu-#{number}",
+    state: "open",
+    start_date: Date.today,
+    end_date: Date.today + 7
+  )
+
+  sections = []
+  3.times do |num|
+    num += 1
+    sections << Section.create(
+      label: "Section -#{number}-#{num}", display_order: num,
+      description: "Description for section goes here"
+    )
+  end
+
+  menu.sections = sections
+  menu.save!
+end

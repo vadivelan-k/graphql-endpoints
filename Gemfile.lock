@@ -108,8 +108,15 @@ GEM
     factory_bot_rails (6.4.3)
       factory_bot (~> 6.4)
       railties (>= 5.0.0)
+    faker (3.2.2)
+      i18n (>= 1.8.11, < 2)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    graphiql-rails (1.9.0)
+      railties
+      sprockets-rails
+    graphql (2.2.3)
+      racc (~> 1.4)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     importmap-rails (1.2.3)
@@ -272,6 +279,9 @@ DEPENDENCIES
   capybara
   debug
   factory_bot_rails
+  faker
+  graphiql-rails
+  graphql
   importmap-rails
   jbuilder
   pg (~> 1.1)
