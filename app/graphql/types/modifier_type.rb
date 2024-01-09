@@ -8,5 +8,11 @@ module Types
     field :price_override, Float
     field :item_id, Integer
     field :modifier_group_id, Integer
+
+    field :item, type: Types::ItemType, null: false
+
+    def item
+      object.item
+    end
   end
 end

@@ -11,5 +11,10 @@ module Types
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
 
     field :sections, [Types::SectionType], null: true
+    field :menu_sections, [Types::MenuSectionType], null: false
+
+    def menu_sections
+      object.menus_sections
+    end
   end
 end
