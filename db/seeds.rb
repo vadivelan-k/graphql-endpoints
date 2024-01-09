@@ -8,24 +8,45 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-10.times do |number|
-  number += 1
-  menu = Menu.create(
-    label: "Menu-#{number}",
-    state: "open",
-    start_date: Date.today,
-    end_date: Date.today + 7
-  )
+# Clear all items before seeding
+Menu.delete_all
 
-  sections = []
-  3.times do |num|
-    num += 1
-    sections << Section.create(
-      label: "Section -#{number}-#{num}", display_order: num,
-      description: "Description for section goes here"
-    )
-  end
+menu = Menu.create(
+  label: "Pizza Menu",
+  state: "open",
+  start_date: Date.today,
+  end_date: Date.today + 7
+)
 
-  menu.sections = sections
-  menu.save!
-end
+classic_pizza = Section.create(
+  label: "Classic Pizzas", display_order: 1,
+  description: "Description for section goes here"
+)
+
+menu.sections << classic_pizza 
+
+# items for first section
+margherita = Item.create(label: 'Margherita Pizza', description: 'Item desc goes here', price: 8.00)
+american = Item.create(label: 'American Pizza', description: 'Item desc goes here', price: 7.00)
+hot_honey = Item.create(label: 'Hot Honey Pizza', description: 'Item desc goes here', price: 6.00)
+
+classic_pizza.items << margherita
+classic_pizza.items << american
+classic_pizza.items << hot_honey
+
+pizza_size = ModifierGroup.create(label: 'Size of Pizza', selection_required_min: 1, selection_required_max: 1)
+margherita.modifier_groups << pizza_size
+
+ten_inch = Modifier.create(
+  item_id: margherita.id, modifier_group_id: pizza_size.id, display_order: 0, default_quantity: 1,
+  price_override: 2.50
+)
+twelve_inch = Modifier.create(
+  item_id: margherita.id, modifier_group_id: pizza_size.id, display_order: 0, default_quantity: 1,
+  price_override: 3.50
+)
+fourteen_inch = Modifier.create(
+  item_id: margherita.id, modifier_group_id: pizza_size.id, display_order: 0, default_quantity: 1,
+  price_override: 5.50
+)
+

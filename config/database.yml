@@ -79,6 +79,4 @@ test:
 #
 production:
   <<: *default
-  database: graphql_endpoints_production
-  username: graphql_endpoints
-  password: <%= ENV["GRAPHQL_ENDPOINTS_DATABASE_PASSWORD"] %>
+  url: <%= ENV["DATABASE_URL"] %>
