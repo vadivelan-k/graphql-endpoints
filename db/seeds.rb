@@ -10,6 +10,12 @@
 
 # Clear all items before seeding
 Menu.delete_all
+Section.delete_all
+Modifier.delete_all
+Item.delete_all
+SectionsItem.delete_all
+ModifierGroup.delete_all
+ItemsModifierGroup.delete_all
 
 menu = Menu.create(
   label: "Pizza Menu",
@@ -22,17 +28,45 @@ classic_pizza = Section.create(
   label: "Classic Pizzas", display_order: 1,
   description: "Description for section goes here"
 )
+chef_recommendation = Section.create(
+  label: "Chef Recommendation Pizzas", display_order: 1,
+  description: "Description for section goes here"
+)
+meat_free = Section.create(
+  label: "Meat Free Pizzas", display_order: 1,
+  description: "Description for section goes here"
+)
+[classic_pizza, meat_free, chef_recommendation].each_with_index do |section, index|
+  MenusSection.create(menu_id: menu.id, section_id: section.id, display_order: index)
+end
 
-menu.sections << classic_pizza 
+def generate_description(keyword:, multiplier: 5)
+  "#{keyword} description goes here " * multiplier
+end
 
 # items for first section
-margherita = Item.create(label: 'Margherita Pizza', description: 'Item desc goes here', price: 8.00)
-american = Item.create(label: 'American Pizza', description: 'Item desc goes here', price: 7.00)
-hot_honey = Item.create(label: 'Hot Honey Pizza', description: 'Item desc goes here', price: 6.00)
-
+margherita = Item.create(label: 'Margherita Pizza', description: generate_description(keyword: 'Margherita Pizza'), price: 8.00)
+american = Item.create(label: 'American Pizza', description: generate_description(keyword: 'American Pizza'), price: 7.00)
+hot_honey = Item.create(label: 'Hot Honey Pizza', description: generate_description(keyword: 'Hot Honey Pizza'), price: 6.00)
+curry_chicken = Item.create(label: 'Curry Chicken Pizza', description: generate_description(keyword: 'Curry Chicken Pizza'), price: 6.00)
 classic_pizza.items << margherita
 classic_pizza.items << american
 classic_pizza.items << hot_honey
+classic_pizza.items << curry_chicken
+
+simply_cheese = Item.create(label: 'Simply Cheese', description: generate_description(keyword: 'Simply Cheese'), price: 8.00)
+very_beefy = Item.create(label: 'Very Beefy', description: generate_description(keyword: 'Very Beefy'), price: 7.00)
+cheesy_hawaiian = Item.create(label: 'Cheesy Hawaiian', description: generate_description(keyword: 'Cheesy Hawaiian'), price: 6.00)
+chef_recommendation.items << simply_cheese
+chef_recommendation.items << very_beefy
+chef_recommendation.items << cheesy_hawaiian
+
+veggie_lovers = Item.create(label: 'Veggie Lovers', description: generate_description(keyword: 'Veggie Lovers'), price: 8.00)
+very_veggie = Item.create(label: 'Very Veggie', description: generate_description(keyword: 'Very Veggie'), price: 7.00)
+veg_galore = Item.create(label: 'Veg Galore', description: generate_description(keyword: 'Veg Galore'), price: 6.00)
+meat_free.items << veggie_lovers
+meat_free.items << very_veggie
+meat_free.items << veg_galore
 
 pizza_size = ModifierGroup.create(label: 'Size of Pizza', selection_required_min: 1, selection_required_max: 1)
 margherita.modifier_groups << pizza_size
@@ -74,9 +108,9 @@ milk_tea = Section.create(label: 'Milk tea', display_order: 1, description: 'Des
 bubble_tea_menu.sections << milk_tea
 
 # items 
-bubble_tea = Item.create(label: 'Bubble Tea', description: 'Bubble tea description here', price: 5.50)
-chocolate_tea = Item.create(label: 'Chocolate Tea', description: 'Chocolate tea description here', price: 5.50)
-caramel_tea = Item.create(label: 'Caramel Tea', description: 'Caramel tea description here', price: 5.50)
+bubble_tea = Item.create(label: 'Bubble Tea', description: generate_description(keyword: 'Bubble tea'), price: 5.50)
+chocolate_tea = Item.create(label: 'Chocolate Tea', description: generate_description(keyword: 'Chocolate tea'), price: 5.50)
+caramel_tea = Item.create(label: 'Caramel Tea', description: generate_description(keyword: 'Caramel tea'), price: 5.50)
 
 milk_tea.items << bubble_tea
 milk_tea.items << chocolate_tea

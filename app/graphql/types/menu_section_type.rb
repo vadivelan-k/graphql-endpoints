@@ -8,5 +8,11 @@ module Types
     field :display_order, Integer, null: false
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
+
+    field :section_label, String, null: false
+
+    def section_label
+      object.section.label
+    end
   end
 end
