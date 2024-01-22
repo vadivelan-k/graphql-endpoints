@@ -10,5 +10,10 @@ module Types
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
 
     field :items, [Types::ItemType], null: true
+    field :disabled, Boolean, null: false
+
+    def disabled
+      [true, false]. sample
+    end
   end
 end

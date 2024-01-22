@@ -10,5 +10,10 @@ module Types
 
     field :modifiers, type: [Types::ModifierType], null: true
     field :modifier_groups, type: [Types::ModifierGroupType], null: true
+    field :disabled, Boolean, null: false
+
+    def disabled
+      [true, false]. sample
+    end
   end
 end
